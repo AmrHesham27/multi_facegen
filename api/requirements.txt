@@ -1,0 +1,5 @@
+fastapi==0.95.2
+uvicorn==0.21.1
+websockets==10.4
+requests==2.31.0
+boto3==1.28.10
