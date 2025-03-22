@@ -6,4 +6,4 @@ COPY . .
 
 RUN chmod +x start.sh comfyui.sh api.sh
 
-CMD ["/workspace/start.sh"]
+ENTRYPOINT ["/workspace/start.sh"]
