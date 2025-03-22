@@ -42,7 +42,7 @@
   },
   "11": {
     "inputs": {
-      "clip_name1": "t5xxl_fp8_e4m3fn.safetensors",
+      "clip_name1": "t5xxl_fp16.safetensors",
       "clip_name2": "clip_l.safetensors",
       "type": "flux",
       "device": "default"
@@ -54,7 +54,7 @@
   },
   "12": {
     "inputs": {
-      "unet_name": "flux1-schnell-fp8.safetensors",
+      "unet_name": "flux1-schnell.safetensors",
       "weight_dtype": "default"
     },
     "class_type": "UNETLoader",
@@ -132,7 +132,7 @@
   },
   "25": {
     "inputs": {
-      "noise_seed": 613845141527061
+      "noise_seed": 191128224508581
     },
     "class_type": "RandomNoise",
     "_meta": {
@@ -189,11 +189,11 @@
   "51": {
     "inputs": {
       "upscale_method": "lanczos",
-      "width": 1024,
-      "height": 1024,
+      "width": 612,
+      "height": 459,
       "crop": "disabled",
       "image": [
-        "55",
+        "93",
         0
       ]
     },
@@ -216,30 +216,6 @@
     "class_type": "VAEEncode",
     "_meta": {
       "title": "VAE Encode"
-    }
-  },
-  "55": {
-    "inputs": {
-      "image": "print4.jpg",
-      "upload": "image"
-    },
-    "class_type": "LoadImage",
-    "_meta": {
-      "title": "Load Image"
-    }
-  },
-  "63": {
-    "inputs": {
-      "text_positive": "A futuristic spaceship interior, featuring sleek metallic walls with glowing blue and white accents. The design includes a spacious central area with high-tech control panels, holographic displays, and touch-screen interfaces. Large observation windows provide a stunning view of outer space, showing distant stars and planets. The environment is well-lit with a mix of ambient and accent lighting, creating a modern and functional atmosphere. The floor is polished metal with subtle textures, and there are chairs and workstations arranged in a neat, organized layout. The background is free of clutter, leaving ample space for characters to be placed naturally within the scene.",
-      "text_negative": "",
-      "style": "base",
-      "log_prompt": true,
-      "style_positive": true,
-      "style_negative": true
-    },
-    "class_type": "SDXLPromptStyler",
-    "_meta": {
-      "title": "Background Prompt"
     }
   },
   "91": {
@@ -272,7 +248,7 @@
         0
       ],
       "source_image": [
-        "55",
+        "93",
         0
       ]
     },
@@ -281,10 +257,19 @@
       "title": "ReActor 🌌 Fast Face Swap"
     }
   },
+  "93": {
+    "inputs": {
+      "url_or_path": "https://media.istockphoto.com/id/1366276371/photo/cropped-portrait-of-three-handsome-young-male-athletes-standing-with-their-arms-folded.jpg?s=612x612&w=0&k=20&c=23tp3r4NoTXAbTNQvbdvlnmDAh9QnFq0dUpTsXN0xtE="
+    },
+    "class_type": "LoadImageFromUrlOrPath",
+    "_meta": {
+      "title": "LoadImageFromUrlOrPath"
+    }
+  },
   "SDXL": {
     "inputs": {
-      "text_positive": "A group of smiling people wearing futuristic spaceship uniforms, standing in a sleek and modern spaceship interior. The uniforms are highly detailed with glowing accents, metallic textures, and advanced gadgetry. The spaceship environment includes a high-tech control panel, large observation windows showcasing a star-filled space background, and a warm, inviting atmosphere. The people are diverse in appearance, showing camaraderie and optimism, emphasizing unity and teamwork. The scene is vibrant and cinematic, capturing the spirit of exploration and adventure.",
-      "text_negative": "text",
+      "text_positive": "The futuristic spaceship uniforms are posed in a sleek, modern interior. The uniforms are highly detailed, with glowing accents, metallic textures, and advanced gadgetry. The spaceship environment includes a high-tech control panel, large observation windows showcasing a star-filled background, and a warm, inviting atmosphere. The scene is vibrant and cinematic, capturing the spirit of exploration and adventure.",
+      "text_negative": "text, people, faces",
       "style": "base",
       "log_prompt": true,
       "style_positive": true,

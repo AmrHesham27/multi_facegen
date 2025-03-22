@@ -9,6 +9,7 @@ pip install torch torchvision torchaudio --index-url https://download.pytorch.or
 
 cd /workspace/ComfyUI/custom_nodes
 git clone https://github.com/twri/sdxl_prompt_styler
+git clone https://github.com/tsogzark/ComfyUI-load-image-from-url
 git clone https://github.com/Gourieff/ComfyUI-ReActor
 cd ..
 python -m pip install -U pip
