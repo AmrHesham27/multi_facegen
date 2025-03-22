@@ -4,6 +4,6 @@ WORKDIR /workspace
 
 COPY . /workspace/
 
-RUN chmod +x start.sh comfyui.sh api.sh
+RUN chmod +x /workspace/start.sh /workspace/comfyui.sh /workspace/api.sh
 
-CMD ["/workspace/start.sh"]
+CMD ["bash", "-c", "/workspace/start.sh"]
