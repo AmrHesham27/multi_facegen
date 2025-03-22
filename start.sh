@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Related to the base docker image
-bash /opt/instance-tools/bin/entrypoint.sh &
-
 # Setup the API
 bash api.sh &
 
