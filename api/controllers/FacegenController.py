@@ -6,10 +6,8 @@ import random
 import websockets
 from controllers.ComfyUIController import ComfyUIController
 from helpers import generate_unique_filename, cloudfare_upload, generate_client_id, restart_comfyui_server
-from ports_dict import Facegen_port
 
 class FacegenController:
-    port = Facegen_port
 
     @staticmethod
     async def create(request: FacegenRequest):
@@ -21,22 +19,21 @@ class FacegenController:
             face_image = request.face_image
             width = request.width
             height = request.height
-            samples = request.samples
             
-            with open(os.path.join("workflows", "5_facegen.json"), "r", encoding="utf-8") as f:
+            with open(os.path.join("workflows", "workflow.json"), "r", encoding="utf-8") as f:
                 workflow_jsondata = f.read()
             jsonwf = json.loads(workflow_jsondata)
 
-            jsonwf["22"]["inputs"]["text"] = prompt
-            jsonwf["23"]["inputs"]["text"] = negative_prompt
-            jsonwf["35"]["inputs"]["url_or_path"] = face_image
-            jsonwf["5"]["inputs"]["width"] = width
-            jsonwf["5"]["inputs"]["height"] = height
-            jsonwf["5"]["inputs"]["batch_size"] = samples
+            jsonwf["SDXL"]["inputs"]["text_positive"] = prompt
+            jsonwf["SDXL"]["inputs"]["text_negative"] = negative_prompt
+            jsonwf["93"]["inputs"]["url_or_path"] = face_image
+            jsonwf["51"]["inputs"]["width"] = width
+            jsonwf["51"]["inputs"]["height"] = height
+            #jsonwf["51"]["inputs"]["batch_size"] = samples
 
             images_urls = []
-            async with websockets.connect(f"ws://localhost:{FacegenController.port}/ws?clientId={client_id}", max_size=7*2**20) as ws:
-                images = await ComfyUIController.get_images(ws, jsonwf, client_id, FacegenController.port)
+            async with websockets.connect(f"ws://localhost:8188/ws?clientId={client_id}", max_size=7*2**20) as ws:
+                images = await ComfyUIController.get_images(ws, jsonwf, client_id, 8188)
 
                 for node_id in images:
                     for image_data in images[node_id]:
@@ -53,7 +50,7 @@ class FacegenController:
 
         except OSError as e:
             if '[Errno 111]' in str(e) and 'Connect call failed' in str(e):
-                restart_comfyui_server(FacegenController.port)
+                print('can not connect')
                 raise HTTPException(status_code=500, detail=f"Please try again after1 minute.")
             else:
                 print(f"OSError occurred: {str(e)}")
