@@ -6,6 +6,7 @@ import random
 import websockets
 from controllers.ComfyUIController import ComfyUIController
 from helpers import generate_unique_filename, cloudfare_upload, generate_client_id, restart_comfyui_server
+import base64
 
 class FacegenController:
 
@@ -33,18 +34,15 @@ class FacegenController:
 
             images_urls = []
             async with websockets.connect(f"ws://localhost:8188/ws?clientId={client_id}", max_size=7*2**20) as ws:
-                images = await ComfyUIController.get_images(ws, jsonwf, client_id, 8188)
+                try:
+                    images = await ComfyUIController.get_images(ws, jsonwf, client_id, 8188)
 
-                for node_id in images:
-                    for image_data in images[node_id]:
-                        """ name = generate_unique_filename()
-                        cloudfare_upload(f"images/{name}.png", image_data)
-                        images_urls.append(f"{os.getenv('CR2_URL')}/images/{name}.png") """
-                        images_urls.append(image_data)
-
-                        """ with open("output.txt", "a") as output_file:
-                            output_file.write(f"Image URL: {os.getenv('CR2_URL')}/images/{name}.png\n") """
-
+                    for node_id in images:
+                        for image_data in images[node_id]:
+                            images_urls.append(base64.b64encode(image_data).decode('utf-8'))
+                            
+                finally:
+                    await ws.close()
             
             return {"status": "success", "output": images_urls}
 

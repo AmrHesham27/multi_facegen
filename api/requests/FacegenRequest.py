@@ -7,4 +7,3 @@ class FacegenRequest(BaseModel):
     face_image: str
     width: str = None
     height: str = None
-    #samples: int = None
